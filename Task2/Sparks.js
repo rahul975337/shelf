@@ -1,63 +1,72 @@
 import { useState } from "react";
-import {
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { DraxList, DraxProvider } from "react-native-drax";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { DraxProvider, DraxView, DraxList } from "react-native-drax";
 import NavigationButton from "../Components/NavigationButton";
 import ActiveSpark from "./ActiveSpark";
-import { sparksData } from "./data";
 import NoActiveSpark from "./NoActiveSpark";
+import { sparksData } from "./data";
 import SparkCard from "./SparkCard";
-import Draggable from "react-native-draggable";
 
 function Sparks({ navigation }) {
   const [activatedSpark, setActivatedSpark] = useState();
+  const [sparksList, setSparksList] = useState(sparksData);
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>sparks</Text>
-      {!activatedSpark ? (
-        <NoActiveSpark shadowPropStyle={styles.shadowProp} />
-      ) : (
-        <ActiveSpark
-          stylshadowPropStylees={styles.shadowProp}
-          logoStyle={styles.logo}
-          activatedSpark={activatedSpark}
-        />
-      )}
-      <View style={styles.listContainer}>
-        <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={true}
-          indicatorStyle="white"
-          alwaysBounceVertical={false}
-          data={sparksData}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity onLongPress={() => setActivatedSpark(item)}>
-                <SparkCard
-                  item={item}
-                  shadowPropStyle={styles.shadowProp}
-                  logoStyle={styles.logo}
-                />
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
-      <NavigationButton
-        navigation={navigation}
-        screenName="HomeScreen"
-        title="Home"
-        style={styles.button}
-      />
+      <GestureHandlerRootView>
+        <DraxProvider>
+          <Text style={styles.title}>sparks</Text>
+          {!activatedSpark ? (
+            <NoActiveSpark
+              sparksList={sparksList}
+              setSparksList={setSparksList}
+              stylshadowPropStylees={styles.shadowProp}
+              activatedSpark={activatedSpark}
+              setActivatedSpark={setActivatedSpark}
+            />
+          ) : (
+            <ActiveSpark
+              sparksList={sparksList}
+              setSparksList={setSparksList}
+              stylshadowPropStylees={styles.shadowProp}
+              logoStyle={styles.logo}
+              activatedSpark={activatedSpark}
+              setActivatedSpark={setActivatedSpark}
+            />
+          )}
+          <View style={styles.listContainer}>
+            <DraxList
+              renderItemContent={SparkCard}
+              scrollEnabled={true}
+              horizontal={true}
+              showsHorizontalScrollIndicator={true}
+              indicatorStyle="white"
+              alwaysBounceVertical={false}
+              data={sparksList}
+              //   keyExtractor={(item) => item.id}
+              keyExtractor={(item, index) => index}
+              //   renderItem={({ item }) => {
+              //     return (
+              //       <TouchableOpacity onLongPress={() => setActivatedSpark(item)}>
+              //         <SparkCard
+              //           item={item}
+              //           shadowPropStyle={styles.shadowProp}
+              //           logoStyle={styles.logo}
+              //         />
+              //       </TouchableOpacity>
+              //     );
+              //   }}
+            />
+          </View>
+          <NavigationButton
+            navigation={navigation}
+            screenName="HomeScreen"
+            title="Home"
+            style={styles.button}
+          />
+        </DraxProvider>
+      </GestureHandlerRootView>
     </SafeAreaView>
   );
 }

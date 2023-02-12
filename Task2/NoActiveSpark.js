@@ -1,8 +1,28 @@
 import { StyleSheet, Text, View } from "react-native";
-
-function NoActiveSpark({ shadowPropStyle }) {
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { DraxProvider, DraxView, DraxList } from "react-native-drax";
+function NoActiveSpark({
+  shadowPropStyle,
+  activatedSpark,
+  setActivatedSpark,
+  index,
+  sparksList,
+  setSparksList,
+}) {
   return (
-    <View style={[styles.mainCard, shadowPropStyle]}>
+    <DraxView
+      style={[styles.mainCard, shadowPropStyle]}
+      onReceiveDragDrop={(event) => {
+        let selected_item = sparksList[event.dragged.payload];
+        if (activatedSpark) {
+          setSparksList(sparksList.push(activatedSpark));
+        }
+        setActivatedSpark(selected_item);
+        let arr = sparksList.filter((item) => item !== selected_item);
+        console.log(selected_item);
+        setSparksList(arr);
+      }}
+    >
       <Text style={{ color: "grey" }}>No Active Spark</Text>
       <Text
         style={{
@@ -15,7 +35,7 @@ function NoActiveSpark({ shadowPropStyle }) {
       >
         slice mini
       </Text>
-    </View>
+    </DraxView>
   );
 }
 const styles = StyleSheet.create({

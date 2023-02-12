@@ -29,10 +29,9 @@ export default function Demo() {
     },
   ];
 
-  const [dragItemMiddleList, setDragItemListMiddle] =
-    useState(draggableItemList);
+  const [itemsList, setItemsList] = useState(draggableItemList);
   const [selectedItem, setSelectedItem] = useState("DUMMY");
-  const DragUIComponent = ({ item, index }) => {
+  const SmallCard = ({ item, index }) => {
     return (
       <DraxView
         style={[
@@ -52,7 +51,7 @@ export default function Demo() {
     );
   };
 
-  const ReceivingZoneUIComponent = () => {
+  const MainCard = () => {
     return (
       <DraxView
         style={[
@@ -61,14 +60,14 @@ export default function Demo() {
           { backgroundColor: "green" },
         ]}
         onReceiveDragDrop={(event) => {
-          let selected_item = dragItemMiddleList[event.dragged.payload];
+          let selected_item = itemsList[event.dragged.payload];
           if (selectedItem) {
-            setDragItemListMiddle(dragItemMiddleList.push(selectedItem));
+            setItemsList(itemsList.push(selectedItem));
           }
           setSelectedItem(selected_item);
-          let arr = dragItemMiddleList.filter((item) => item !== selected_item);
+          let arr = itemsList.filter((item) => item !== selected_item);
           console.log(selected_item);
-          setDragItemListMiddle(arr);
+          setItemsList(arr);
         }}
       >
         <Text style={styles.textStyle}>{selectedItem.name}</Text>
@@ -81,12 +80,12 @@ export default function Demo() {
       <DraxProvider>
         <View style={styles.container}>
           <View style={styles.receivingContainer}>
-            <ReceivingZoneUIComponent />
+            <MainCard />
           </View>
           <View style={styles.draxListContainer}>
             <DraxList
-              data={dragItemMiddleList}
-              renderItemContent={DragUIComponent}
+              data={itemsList}
+              renderItemContent={SmallCard}
               keyExtractor={(item, index) => index}
               numColumns={4}
               scrollEnabled={true}

@@ -1,12 +1,38 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+import { DraxView } from "react-native-drax";
 
-function ActiveSpark({ activatedSpark, shadowPropStyle, logoStyle }) {
+const ActiveSpark = ({
+  activatedSpark,
+  setActivatedSpark,
+  shadowPropStyle,
+  logoStyle,
+  index,
+  sparksList,
+  setSparksList,
+}) => {
+  // const showConfirmation = () => {
+  //   return (
+
+  //   );
+  // };
+
   return (
-    <View
+    <DraxView
       style={{
         ...styles.selectedMainCard,
         ...shadowPropStyle,
         ...{ backgroundColor: activatedSpark.color },
+      }}
+      onReceiveDragDrop={(event) => {
+        let selected_item = sparksList[event.dragged.payload];
+        if (activatedSpark) {
+          setSparksList(sparksList.unshift(activatedSpark));
+        }
+        setActivatedSpark(selected_item);
+
+        let arr = sparksList.filter((item) => item !== selected_item);
+        console.log(selected_item);
+        setSparksList(arr);
       }}
     >
       <Image style={logoStyle} source={{ uri: activatedSpark.logo }} />
@@ -34,9 +60,9 @@ function ActiveSpark({ activatedSpark, shadowPropStyle, logoStyle }) {
           slice mini
         </Text>
       </View>
-    </View>
+    </DraxView>
   );
-}
+};
 const styles = StyleSheet.create({
   selectedMainCard: {
     backgroundColor: "white",
