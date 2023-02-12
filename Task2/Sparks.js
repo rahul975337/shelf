@@ -1,20 +1,36 @@
+import { useState } from "react";
 import {
-  Button,
   FlatList,
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
+  Dimensions,
 } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { DraxProvider, DraxView, DraxList } from "react-native-drax";
+import NavigationButton from "../Components/NavigationButton";
+import ActiveSpark from "./ActiveSpark";
 import { sparksData } from "./data";
-import ImageColors from "react-native-image-colors";
+import NoActiveSpark from "./NoActiveSpark";
+import SparkCard from "./SparkCard";
+import Draggable from "react-native-draggable";
 
 function Sparks({ navigation }) {
+  const [activatedSpark, setActivatedSpark] = useState();
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>sparks</Text>
-      <View style={styles.mainCard}></View>
+      {!activatedSpark ? (
+        <NoActiveSpark shadowPropStyle={styles.shadowProp} />
+      ) : (
+        <ActiveSpark
+          stylshadowPropStylees={styles.shadowProp}
+          logoStyle={styles.logo}
+          activatedSpark={activatedSpark}
+        />
+      )}
       <View style={styles.listContainer}>
         <FlatList
           horizontal={true}
@@ -25,35 +41,30 @@ function Sparks({ navigation }) {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return (
-              <View style={[styles.card, styles.shadowProp]}>
-                <Text style={styles.textDefault}>{item.company}</Text>
-                <Text
-                  style={{
-                    color: item.color,
-                    fontSize: 20,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Get {item.offer}% cashback
-                </Text>
-                <View style={styles.cardBottom}>
-                  <Text style={{ color: "grey", fontSize: 13 }}>
-                    🕐 {item.days} days left
-                  </Text>
-                  <Image style={styles.logo} source={{ uri: item.logo }} />
-                </View>
-              </View>
+              <TouchableOpacity onLongPress={() => setActivatedSpark(item)}>
+                <SparkCard
+                  item={item}
+                  shadowPropStyle={styles.shadowProp}
+                  logoStyle={styles.logo}
+                />
+              </TouchableOpacity>
             );
           }}
         />
       </View>
+      <NavigationButton
+        navigation={navigation}
+        screenName="HomeScreen"
+        title="Home"
+        style={styles.button}
+      />
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "flex-start",
+    alignItems: "center",
     backgroundColor: "#0E1117",
   },
   title: {
@@ -62,28 +73,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 30,
   },
-  mainCard: {
-    backgroundColor: "red",
-    height: "40%",
-    width: "100%",
-  },
+
   listContainer: {
-    // margin: 30,
+    marginTop: 50,
     height: "30%",
     width: "100%",
-    // backgroundColor: "pink",
   },
-  card: {
-    width: 200,
-    height: 150,
-    padding: 20,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    borderRadius: 25,
-    margin: 20,
-    backgroundColor: "white",
-  },
+
   shadowProp: {
     shadowColor: "grey",
     shadowOffset: { width: 0, height: 1 },
@@ -92,24 +88,17 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
-  cardBottom: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
   logo: {
     borderRadius: "50%",
     height: 35,
     borderWidth: 0.2,
-    // resizeMode: "contain",
     overflow: "hidden",
     borderColor: "grey",
     width: 35,
   },
-  indicator: {
-    color: "white",
-    backgroundColor: "white",
+  button: {
+    position: "absolute",
+    bottom: 0,
   },
 });
 export default Sparks;

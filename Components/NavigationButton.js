@@ -1,15 +1,8 @@
-import {
-  Button,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-function NavigationButton({ navigation, screenName, title }) {
+import { Pressable, StyleSheet, Text } from "react-native";
+function NavigationButton({ navigation, screenName, title, style }) {
   return (
     <Pressable
-      style={styles.button}
+      style={[styles.button, style]}
       onPress={() => navigation.navigate(screenName)}
     >
       <Text style={styles.buttonText}>{title}</Text>
@@ -18,7 +11,6 @@ function NavigationButton({ navigation, screenName, title }) {
 }
 const styles = StyleSheet.create({
   button: {
-    color: "pink",
     height: 50,
     margin: 50,
     width: "50%",

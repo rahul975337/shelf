@@ -14,7 +14,6 @@ import LazyLoadFlatList from "@gluons/react-native-lazyload-flatlist";
 const CreateGroup = ({ navigation }) => {
   const [contacts, setContacts] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
-
   const [contactsPermission, setContactsPermission] = useState(null);
   const [lastLoadedData, setLastLoadedData] = useState([]);
   function getRandomColor() {
@@ -100,7 +99,6 @@ const CreateGroup = ({ navigation }) => {
       )}
       {/* Contacts List */}
       <>
-        {/* <Text style={styles.heading}>Contacts</Text> */}
         <View style={styles.listContainer}>
           {contactsPermission === "granted" ? (
             <LazyLoadFlatList
