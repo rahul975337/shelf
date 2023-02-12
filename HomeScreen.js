@@ -20,9 +20,9 @@ function HomeScreen({ navigation }) {
       </Pressable>
       <Pressable
         style={styles.button}
-        onPress={() => navigation.navigate("Spark")}
+        onPress={() => navigation.navigate("Task2")}
       >
-        <Text style={styles.buttonText}>Spark</Text>
+        <Text style={styles.buttonText}>Task2</Text>
       </Pressable>
     </SafeAreaView>
   );
@@ -35,20 +35,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#0E1117",
     justifyContent: "center",
   },
-  button: {
-    color: "pink",
-    height: 50,
-    margin: 50,
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "10%",
-    backgroundColor: "cyan",
-  },
-  buttonText: {
-    color: "#0E1117",
-    fontWeight: "bold",
-    fontSize: 20,
-  },
+
 });
 export default HomeScreen;

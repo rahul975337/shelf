@@ -1,0 +1,51 @@
+export const sparksData = [
+  {
+    id: 1,
+    company: "Swiggy",
+    offer: 30,
+    days: 15,
+    logo: "https://logosandtypes.com/wp-content/uploads/2021/01/Swiggy.png",
+    color: "#FC8019",
+  },
+
+  {
+    id: 2,
+    company: "Myntra",
+    offer: 15,
+    days: 6,
+    logo: "https://images.news18.com/ibnlive/uploads/2021/01/1611996262_ynt.jpeg",
+    color: "#F13AB1",
+  },
+  {
+    id: 3,
+    company: "Licious",
+    offer: 15,
+    days: 3,
+    logo: "https://etimg.etb2bimg.com/photo/91981434.cms",
+    color: "#cb202d",
+  },
+  {
+    id: 4,
+    company: "Grofers",
+    offer: 20,
+    days: 5,
+    logo: "https://newsd.in/wp-content/uploads/2021/06/grofers-logo.jpg",
+    color: "#F37437",
+  },
+  {
+    id: 5,
+    company: "Zomato",
+    offer: 10,
+    days: 5,
+    logo: "https://upload.wikimedia.org/wikipedia/commons/7/75/Zomato_logo.png",
+    color: "#cb202d",
+  },
+  {
+    id: 6,
+    company: "Oyo",
+    offer: 20,
+    days: 9,
+    logo: "https://seeklogo.com/images/O/oyo-rooms-logo-6C301512FE-seeklogo.com.png",
+    color: "#EF251F",
+  },
+];
