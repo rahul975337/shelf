@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import LazyLoadFlatList from "@gluons/react-native-lazyload-flatlist";
+import TopNavbar from "./TopNavbar";
 
 const CreateGroup = ({ navigation }) => {
   const [contacts, setContacts] = useState([]);
@@ -44,18 +45,40 @@ const CreateGroup = ({ navigation }) => {
       setSelectedContacts(selectedContacts.filter((c) => c !== contact));
     else setSelectedContacts([...selectedContacts, contact]);
   };
+  const getContactsList = () => {
+    return (
+      <LazyLoadFlatList
+        data={contacts}
+        itemLimit={20}
+        onLoadMore={(moreData) => {
+          setLastLoadedData(moreData);
+          return moreData;
+        }}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => toggleContact(item)}
+            style={
+              selectedContacts.includes(item)
+                ? styles.selectedContact
+                : styles.contact
+            }
+          >
+            <Text style={[styles.textDefault, styles.contactListText]}>
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
   const getSelectedContacts = () => {
     return (
       <LazyLoadFlatList
         horizontal={true}
         data={selectedContacts}
         renderItem={({ item }) => (
-          // {{...segmentStyle, ...{height:'100%'}}}
-
-          <TouchableOpacity
-            onPress={() => toggleContact(item)}
-            // style={styles.contact}
-          >
+          <TouchableOpacity onPress={() => toggleContact(item)}>
             <View
               style={{
                 ...styles.selectedListItem,
@@ -72,24 +95,10 @@ const CreateGroup = ({ navigation }) => {
       />
     );
   };
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* TOP NAVBAR */}
-      <View style={styles.topNavBar}>
-        <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
-          <Text style={styles.navBarText}>Back</Text>
-        </TouchableOpacity>
-        <Text style={styles.heading}>Add Participants</Text>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("ViewGroup", {
-              participantsList: selectedContacts,
-            })
-          }
-        >
-          <Text style={styles.navBarText}>Create</Text>
-        </TouchableOpacity>
-      </View>
+      <TopNavbar navigation={navigation} selectedContacts={selectedContacts} />
       {/* Selected List */}
       {selectedContacts.length > 0 && (
         <>
@@ -98,60 +107,18 @@ const CreateGroup = ({ navigation }) => {
         </>
       )}
       {/* Contacts List */}
-      <>
-        {/* <Text style={styles.heading}>Contacts</Text> */}
-        <View style={styles.listContainer}>
-          {contactsPermission === "granted" ? (
-            <LazyLoadFlatList
-              data={contacts}
-              itemLimit={20}
-              onLoadMore={(moreData) => {
-                setLastLoadedData(moreData);
-                return moreData;
-              }}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() => toggleContact(item)}
-                  style={
-                    selectedContacts.includes(item)
-                      ? styles.selectedContact
-                      : styles.contact
-                  }
-                >
-                  <Text style={[styles.textDefault, styles.contactListText]}>
-                    {item.name}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          ) : (
-            <Text>
-              Please grant access to your contacts to use this feature.
-            </Text>
-          )}
-        </View>
-      </>
+      <View style={styles.listContainer}>
+        {contactsPermission === "granted" ? (
+          getContactsList()
+        ) : (
+          <Text>Please grant access to your contacts to use this feature.</Text>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  topNavBar: {
-    // height: "10%",
-    display: "flex",
-    width: "100%",
-    flexDirection: "row",
-    padding: 10,
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 30,
-    borderBottomWidth: 0.2,
-    borderColor: "white",
-  },
-  navBarText: {
-    color: "cyan",
-  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -199,5 +166,6 @@ const styles = StyleSheet.create({
     height: 60,
   },
 });
+
 
 export default CreateGroup;
