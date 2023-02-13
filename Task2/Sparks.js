@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { DraxList, DraxProvider } from "react-native-drax";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import NavigationButton from "../Components/NavigationButton";
@@ -9,8 +9,18 @@ import { sparksData } from "./data";
 import SparkCard from "./SparkCard";
 
 function Sparks({ navigation }) {
-  const [activatedSpark, setActivatedSpark] = useState();
+  const [activatedSpark, setActivatedSpark] = useState("");
   const [sparksList, setSparksList] = useState(sparksData);
+  const [dragging, setDragging] = useState(false);
+  useEffect(() => {
+    if (activatedSpark != "")
+      Alert.alert("Activated", activatedSpark.company, [
+        {
+          text: "OK",
+          onPress: () => console.log("OK Pressed"),
+        },
+      ]);
+  }, [activatedSpark]);
   return (
     <SafeAreaView style={styles.container}>
       <GestureHandlerRootView>

@@ -1,13 +1,12 @@
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { DraxProvider, DraxView, DraxList } from "react-native-drax";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { DraxView } from "react-native-drax";
 function SparkCard({ item, index }) {
   return (
     <DraxView
       style={[styles.card, styles.shadowProp]}
-      draggingStyle={styles.dragging}
-      dragReleasedStyle={styles.dragging}
-      hoverDraggingStyle={styles.hoverDragging}
+      onDragEnter={() => console.log("DragEnter")}
+      onDragExit={() => console.log("DragExit")}
+      animateSnapback={false}
       dragPayload={index}
       longPressDelay={150}
       key={index}
@@ -55,21 +54,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 7,
     elevation: 5,
-  },
-  draggableBox: {
-    width: Dimensions.get("window").width / 4 - 12,
-    height: Dimensions.get("window").width / 4 - 12,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 5,
-  },
-  dragging: {
-    opacity: 0.2,
-  },
-  hoverDragging: {
-    borderColor: "magenta",
-    borderWidth: 2,
   },
   logo: {
     borderRadius: "50%",

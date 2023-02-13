@@ -14,9 +14,9 @@ function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        {/* <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} />
-        <Stack.Screen name="ViewGroup" component={ViewGroup} />
+        <Stack.Screen name="ViewGroup" component={ViewGroup} /> */}
         <Stack.Screen name="Sparks" component={Sparks} />
       </Stack.Navigator>
     </NavigationContainer>

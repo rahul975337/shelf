@@ -16,6 +16,7 @@ const ActiveSpark = ({
         ...shadowPropStyle,
         ...{ backgroundColor: activatedSpark.color },
       }}
+      animateSnapback={false}
       onReceiveDragDrop={(event) => {
         let selected_item = sparksList[event.dragged.payload];
         if (activatedSpark) {
@@ -73,6 +74,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     left: 20,
+  },
+  receivingStyle: {
+    backgroundColor: "pink",
+    color: "green",
+    opacity: 0.3,
   },
 });
 export default ActiveSpark;
