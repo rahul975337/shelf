@@ -66,7 +66,6 @@ export default function Demo() {
           }
           setSelectedItem(selected_item);
           let arr = itemsList.filter((item) => item !== selected_item);
-          console.log(selected_item);
           setItemsList(arr);
         }}
       >

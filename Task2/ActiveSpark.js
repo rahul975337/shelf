@@ -6,16 +6,9 @@ const ActiveSpark = ({
   setActivatedSpark,
   shadowPropStyle,
   logoStyle,
-  index,
   sparksList,
   setSparksList,
 }) => {
-  // const showConfirmation = () => {
-  //   return (
-
-  //   );
-  // };
-
   return (
     <DraxView
       style={{
@@ -29,9 +22,7 @@ const ActiveSpark = ({
           setSparksList(sparksList.unshift(activatedSpark));
         }
         setActivatedSpark(selected_item);
-
         let arr = sparksList.filter((item) => item !== selected_item);
-        console.log(selected_item);
         setSparksList(arr);
       }}
     >
@@ -69,6 +60,7 @@ const styles = StyleSheet.create({
     height: "27%",
     borderRadius: 25,
     marginTop: 50,
+    marginLeft: 20,
     width: "85%",
     padding: 20,
   },

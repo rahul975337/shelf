@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { DraxProvider, DraxView, DraxList } from "react-native-drax";
+import { StyleSheet, Text } from "react-native";
+import { DraxView } from "react-native-drax";
 function NoActiveSpark({
   shadowPropStyle,
   activatedSpark,
@@ -19,7 +18,6 @@ function NoActiveSpark({
         }
         setActivatedSpark(selected_item);
         let arr = sparksList.filter((item) => item !== selected_item);
-        console.log(selected_item);
         setSparksList(arr);
       }}
     >
@@ -43,6 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: "27%",
     borderRadius: 25,
+    marginLeft: 25,
     marginTop: 50,
     width: "85%",
     padding: 20,

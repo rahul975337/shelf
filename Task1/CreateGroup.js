@@ -99,6 +99,7 @@ const CreateGroup = ({ navigation }) => {
       )}
       {/* Contacts List */}
       <>
+        {/* <Text style={styles.heading}>Contacts</Text> */}
         <View style={styles.listContainer}>
           {contactsPermission === "granted" ? (
             <LazyLoadFlatList

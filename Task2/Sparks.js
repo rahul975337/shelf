@@ -11,7 +11,6 @@ import SparkCard from "./SparkCard";
 function Sparks({ navigation }) {
   const [activatedSpark, setActivatedSpark] = useState();
   const [sparksList, setSparksList] = useState(sparksData);
-
   return (
     <SafeAreaView style={styles.container}>
       <GestureHandlerRootView>
@@ -44,29 +43,17 @@ function Sparks({ navigation }) {
               indicatorStyle="white"
               alwaysBounceVertical={false}
               data={sparksList}
-              //   keyExtractor={(item) => item.id}
               keyExtractor={(item, index) => index}
-              //   renderItem={({ item }) => {
-              //     return (
-              //       <TouchableOpacity onLongPress={() => setActivatedSpark(item)}>
-              //         <SparkCard
-              //           item={item}
-              //           shadowPropStyle={styles.shadowProp}
-              //           logoStyle={styles.logo}
-              //         />
-              //       </TouchableOpacity>
-              //     );
-              //   }}
             />
           </View>
-          <NavigationButton
-            navigation={navigation}
-            screenName="HomeScreen"
-            title="Home"
-            style={styles.button}
-          />
         </DraxProvider>
       </GestureHandlerRootView>
+      <NavigationButton
+        navigation={navigation}
+        screenName="HomeScreen"
+        title="Home"
+        style={styles.button}
+      />
     </SafeAreaView>
   );
 }
@@ -108,6 +95,7 @@ const styles = StyleSheet.create({
   button: {
     position: "absolute",
     bottom: 0,
+    marginLeft: "23%",
   },
 });
 export default Sparks;

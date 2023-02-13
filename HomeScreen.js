@@ -1,4 +1,4 @@
-import { Pressable, SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import NavigationButton from "./Components/NavigationButton";
 
 function HomeScreen({ navigation }) {
@@ -14,18 +14,6 @@ function HomeScreen({ navigation }) {
         screenName="Sparks"
         title="Sparks"
       />
-      {/* <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate("CreateGroup")}
-      >
-        <Text style={styles.buttonText}>Create Group</Text>
-      </Pressable>
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate("Task2")}
-      >
-        <Text style={styles.buttonText}>Task2</Text>
-      </Pressable> */}
     </SafeAreaView>
   );
 }
